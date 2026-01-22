@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -12,47 +12,47 @@ export const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleLoadAll = async () => {
+  const handleLoadAll = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const data = await getAll();
 
       setGoods(data);
-    } catch (event) {
-      setError((event as Error).message);
+    } catch (err) {
+      setError((err as Error).message);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const handleLoadFive = async () => {
+  const handleLoadFive = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const data = await get5First();
 
       setGoods(data);
-    } catch (event) {
-      setError((event as Error).message);
+    } catch (err) {
+      setError((err as Error).message);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const handleLoadRed = async () => {
+  const handleLoadRed = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const data = await getRedGoods();
 
       setGoods(data);
-    } catch (event) {
-      setError((event as Error).message);
+    } catch (err) {
+      setError((err as Error).message);
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   return (
     <div className="App">
